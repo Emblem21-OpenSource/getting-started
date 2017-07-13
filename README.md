@@ -11,7 +11,8 @@ While in Terminal, type these commands:
 ### Tools
 
 ```
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list sudo apt-get update
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 sudo apt-get update
 sudo apt-get install git imagemagick sublime-text
 touch ~/.bash_profile
@@ -47,3 +48,41 @@ ColorPicker
 
 ### Github
 
+Next, create an email address just for you that will deal with your life as a programmer.  Then, create an account at http://www.github.com
+
+Now return to Terminal and type whoami and that will give you your Username.  You'll need this later.
+
+Next, you'll have to generate an SSH key with this:
+
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+Replace `your_email@example.com` with the email address you've created
+
+Once here, you'll go through a prompt that will ask `Enter a file in which to save the key (/home/<whateverYourUsernameIs>/.ssh/id_rsa):`
+
+Type (Don't paste, you CANNOT paste here) `/home/<whoeverYourUserNameIs>/.ssh/github_rsa` and press enter.
+
+It will ask you for passwords, enter something easy to remember.
+
+Then when this is done, type `chmod 0600 /home/<whoeverYourUserNameIs>/.ssh/github_rsa`
+
+Then type `gedit /home/<whoeverYourUserNameIs>/.ssh/config`  This will open gedit and paste the following into it
+
+```
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_rsa
+```
+
+When you are done, press `ctl + s` to save the file, then close gedit.
+
+NOW, return to Terminal and type `cat /home/<whoeverYourUserNameIs>/.ssh/github_rsa.pub`  This will output the file contents on the terminal.  Select those contents and copy them then go to https://github.com/settings/keys (Make sure you are logged in) and click on the green button called New SSH Key in the upper right hand corner.
+
+Set the Title field to `System76 Laptop` and then paste your clipboard contents to the Key field and click on the green `Add SSH Key` button below.
+
+Then go back to Terminal and type `ssh git@github.com` and type `yes`, press enter, and when it asks you for a password, enter it, and press enter.
+
+Gradulations, you are now ready to be a Web Developer for Emblem 21!
