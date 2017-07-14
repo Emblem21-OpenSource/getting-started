@@ -66,9 +66,9 @@ Type (Don't paste, you CANNOT paste here) `/home/<whoeverYourUserNameIs>/.ssh/gi
 
 It will ask you for passwords, enter something easy to remember.
 
-Then when this is done, type `chmod 0600 /home/<whoeverYourUserNameIs>/.ssh/github_rsa`
+Then when this is done, type `chmod 0600 ~/.ssh/github_rsa`
 
-Then type `gedit /home/<whoeverYourUserNameIs>/.ssh/config`  This will open gedit and paste the following into it
+Then type `gedit ~/.ssh/config`  This will open gedit and paste the following into it
 
 ```
 Host github.com
@@ -79,10 +79,51 @@ Host github.com
 
 When you are done, press `ctl + s` to save the file, then close gedit.
 
-NOW, return to Terminal and type `cat /home/<whoeverYourUserNameIs>/.ssh/github_rsa.pub`  This will output the file contents on the terminal.  Select those contents and copy them then go to https://github.com/settings/keys (Make sure you are logged in) and click on the green button called New SSH Key in the upper right hand corner.
+NOW, return to Terminal and type `cat ~/.ssh/github_rsa.pub`  This will output the file contents on the terminal.  Select those contents and copy them then go to https://github.com/settings/keys (Make sure you are logged in) and click on the green button called New SSH Key in the upper right hand corner.
 
 Set the Title field to `System76 Laptop` and then paste your clipboard contents to the Key field and click on the green `Add SSH Key` button below.
 
 Then go back to Terminal and type `ssh git@github.com` and type `yes`, press enter, and when it asks you for a password, enter it, and press enter.
 
 Gradulations, you are now ready to be a Web Developer for Emblem 21!
+
+## Windows
+
+Open Git Bash
+
+Next, you'll have to generate an SSH key with this:
+
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+Replace `your_email@example.com` with the email address you've used for GitHub
+
+Once here, you'll go through a prompt that will ask `Enter a file in which to save the key:`  Just press enter.
+
+It will ask you for a password, enter something easy to remember. Press enter, then type:
+
+```
+git config --global user.name "your github name"
+git config --global user.email "your github email"
+mv ~/.ssh/id_rsa ~/.ssh/github_rsa
+mv ~/.ssh/id_rsa.pub ~/.ssh/github_rsa.pub
+chmod 0600 ~/.ssh/github_rsa
+```
+
+Then type `notepad ~/.ssh/config`  This will open notepad and paste the following into it:
+
+```
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_rsa
+```
+
+When you are done, press `ctl + s` to save the file, then close notepad.
+
+NOW, return to Git Bash and type `cat ~/.ssh/github_rsa.pub`  This will output the file contents on the terminal.  Select those contents and copy them then go to https://github.com/settings/keys (Make sure you are logged in) and click on the green button called New SSH Key in the upper right hand corner.
+
+Set the Title field to `My Trusty Desktop` and then paste your clipboard contents to the Key field and click on the green `Add SSH Key` button below.
+
+Then go back to Terminal and type `ssh git@github.com` and type `yes`, press enter, and when it asks you for a password, enter it, and press enter.
